@@ -12,7 +12,7 @@
 
 Three tables loaded from the Superstore dataset:
 
-\- \*\*Orders\*\* — main fact table 
+\- \*\*Orders\*\* — main fact table
 
 \- \*\*People\*\* — sales representatives by region
 
@@ -72,19 +72,19 @@ Date Table =
 
 ADDCOLUMNS(
 
-&#x20;   CALENDAR(
+\&#x20;   CALENDAR(
 
-&#x20;       MIN(MIN(Orders\[Order Date]), MIN(Orders\[ship date])),
+\&#x20;       MIN(MIN(Orders\\\[Order Date]), MIN(Orders\\\[ship date])),
 
-&#x20;       MAX(MAX(Orders\[Order Date]), MAX(Orders\[ship date]))
+\&#x20;       MAX(MAX(Orders\\\[Order Date]), MAX(Orders\\\[ship date]))
 
-&#x20;   ),
+\&#x20;   ),
 
-&#x20;   "Year", YEAR(\[Date]),
+\&#x20;   "Year", YEAR(\\\[Date]),
 
-&#x20;   "Month Name", FORMAT(\[Date], "MMMM"),
+\&#x20;   "Month Name", FORMAT(\\\[Date], "MMMM"),
 
-&#x20;   "Quarter", "Q" \& QUARTER(\[Date])
+\&#x20;   "Quarter", "Q" \\\& QUARTER(\\\[Date])
 
 )
 
@@ -98,9 +98,9 @@ ADDCOLUMNS(
 
 |------|----|------|--------|
 
-| `Date Table\[Date]` | `Orders\[Order Date]` | Many-to-One | ✅ Active |
+| `Date Table\\\[Date]` | `Orders\\\[Order Date]` | Many-to-One | ✅ Active |
 
-| `Date Table\[Date]` | `Orders\[ship date]` | Many-to-One | ⚪ Inactive |
+| `Date Table\\\[Date]` | `Orders\\\[ship date]` | Many-to-One | ⚪ Inactive |
 
 
 
@@ -124,7 +124,7 @@ ADDCOLUMNS(
 
 DateTypeID | DateTypeName
 
-\-----------|-------------
+\\-----------|-------------
 
 1          | Order Date
 
@@ -132,7 +132,7 @@ DateTypeID | DateTypeName
 
 ```
 
-> This table is \*\*not connected\*\* to any other table — used only to drive the slicer.
+> This table is \\\*\\\*not connected\\\*\\\* to any other table — used only to drive the slicer.
 
 
 
@@ -142,23 +142,23 @@ DateTypeID | DateTypeName
 
 Dynamic Sales = 
 
-VAR SelectedType = SELECTEDVALUE('Date Selector'\[DateTypeID], 1)
+VAR SelectedType = SELECTEDVALUE('Date Selector'\\\[DateTypeID], 1)
 
 RETURN
 
 SWITCH(
 
-&#x20;   SelectedType,
+\&#x20;   SelectedType,
 
-&#x20;   1, CALCULATE(SUM(Orders\[Sales])),
+\&#x20;   1, CALCULATE(SUM(Orders\\\[Sales])),
 
-&#x20;   2, CALCULATE(
+\&#x20;   2, CALCULATE(
 
-&#x20;          SUM(Orders\[Sales]),
+\&#x20;          SUM(Orders\\\[Sales]),
 
-&#x20;          USERELATIONSHIP('Date Table'\[Date], Orders\[ship date])
+\&#x20;          USERELATIONSHIP('Date Table'\\\[Date], Orders\\\[ship date])
 
-&#x20;      )
+\&#x20;      )
 
 )
 
